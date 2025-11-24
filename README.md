@@ -1,4 +1,4 @@
-## My expertise lies in developing AI agents/ back-end in Python. It has been my first MAJOR JS project though I have done several minor ones in the past. I had taken help from my friend, who has strong expertise in this field. Currently, the code has some bugs that is going out of my reach to resolve. It was a challenging 4-day task to balance college work and this project.
+## My expertise lies in developing AI agents/ back-end in Python. It has been my first MAJOR JS project though I have done several minor ones in the past. I had taken help from my friend, who has strong expertise in this field. Currently, the code has some bugs that is going out of my reach to resolve. Few functionalities are working fine. It was a challenging 4-day task to balance college work and this project. I had used the free Gemini API key before (in a previous project of mine) and I would say it was horrible, because it failed on stage and made my team go from No. 1 Campus Project to average.
  
 # ScribeAI
 
@@ -265,5 +265,6 @@ MIT
 ## Contributing
 
 Contributions welcome! Please open an issue or PR.
+
 
 
