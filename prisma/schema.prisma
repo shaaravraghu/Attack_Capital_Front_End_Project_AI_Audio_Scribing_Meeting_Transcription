@@ -1,0 +1,82 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  name      String?
+  sessions  Session[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Session {
+  id             String            @id @default(uuid())
+  user           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId         String
+  status         SessionStatus     @default(PENDING)
+  source         RecordingSource   @default(MIC)
+  startedAt      DateTime          @default(now())
+  endedAt        DateTime?
+  summary        Summary?
+  transcript     TranscriptChunk[]
+  audioArtifact  String?
+  interruptionAt DateTime?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+}
+
+model TranscriptChunk {
+  id         String   @id @default(uuid())
+  session    Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sessionId  String
+  sequence   Int
+  speakerTag String
+  text       String
+  startedAt  DateTime
+  endedAt    DateTime
+  audioUrl   String?
+  confidence Float?
+  createdAt  DateTime @default(now())
+
+  @@unique([sessionId, sequence])
+}
+
+model Summary {
+  id         String   @id @default(uuid())
+  session    Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  sessionId  String   @unique
+  keyPoints  String
+  actionItems String
+  decisions  String
+  createdAt  DateTime @default(now())
+}
+
+enum SessionStatus {
+  PENDING
+  RECORDING
+  PAUSED
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+enum RecordingSource {
+  MIC
+  TAB
+}
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+
+datasource db {
+  provider = "postgresql"
+    url      = env("DATABASE_URL")
+
+}

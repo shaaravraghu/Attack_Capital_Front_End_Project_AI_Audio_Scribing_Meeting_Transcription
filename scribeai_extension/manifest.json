@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "ScribeAI Tab Audio Capture",
+  "version": "1.0.0",
+  "description": "Enables tab audio capture for ScribeAI meeting transcription",
+  "permissions": [
+    "tabCapture",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://localhost:3000/*",
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+     "3": "icons/icon3.jpg",
+    "2": "icons/icon2.jpg",
+    "1": "icons/icon1.jpg"
+    }
+  },
+  "icons": {
+    "3": "icons/icon3.jpg",
+    "2": "icons/icon2.jpg",
+    "1": "icons/icon1.jpg"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://localhost:3000/*", "https://*/*"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ]
+}
